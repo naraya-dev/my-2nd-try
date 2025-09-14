@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Material</title>
+    <style>
+        /* Floating images styles */
+        #floatingImages {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 2;
+        }
+        .floating-img {
+            position: absolute;
+            width: 48px;
+            height: 48px;
+            opacity: 0.7;
+            transition: transform 0.8s;
+        }
+        @media (max-width: 600px) {
+            .floating-img {
+                width: 32px;
+                height: 32px;
+            }
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f8fafc 0%, #a7f3d0 40%, #38bdf8 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        /* Dynamic floating background: network nodes */
+        .network-bg {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 60px;
+            position: relative;
+            z-index: 1;
+        }
+        .box {
+            background: linear-gradient(135deg, #fbbf24 0%, #38bdf8 100%);
+            border-radius: 16px;
+            box-shadow: 0 4px 16px rgba(56,189,248,0.18);
+            width: 220px;
+            height: 160px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #232b4d;
+            cursor: pointer;
+            transition: box-shadow 0.2s;
+        }
+        .box:hover {
+            box-shadow: 0 8px 24px rgba(56,189,248,0.28);
+            background: linear-gradient(135deg, #38bdf8 0%, #fbbf24 100%);
+        }
+        @keyframes floatLogo {
+            0% { transform: translateY(0px) scale(1.04); }
+            50% { transform: translateY(-18px) scale(1.08); }
+            100% { transform: translateY(0px) scale(1.04); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating computer/network images -->
+    <div id="floatingImages"></div>
+    <!-- PDF Modal -->
+    <div id="pdfModal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(30,41,59,0.92);z-index:10000;align-items:center;justify-content:center;flex-direction:column;">
+        <button onclick="closePDF();window.location.href='index.HTML';" style="background:#fbbf24;color:#232b4d;font-weight:700;padding:12px 32px;border-radius:18px;border:none;box-shadow:0 2px 8px rgba(99,102,241,0.18);font-size:1.1rem;cursor:pointer;margin-bottom:18px;">&#8592; Back to Main Page</button>
+        <button onclick="closePDF()" style="background:#6366f1;color:#fff;font-weight:700;padding:8px 18px;border-radius:12px;border:none;box-shadow:0 2px 8px rgba(99,102,241,0.18);font-size:1rem;cursor:pointer;position:absolute;top:24px;right:32px;">✖ Close</button>
+        <iframe id="pdfFrame" src="" style="width:80vw;height:80vh;border:none;border-radius:12px;box-shadow:0 8px 32px rgba(99,102,241,0.18);"></iframe>
+    </div>
+    <canvas class="network-bg" id="networkCanvas"></canvas>
+    <div style="width:100vw;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;z-index:2;margin-top:38px;">
+        <a href="index.HTML" style="text-decoration:none;">
+            <button style="background:#fbbf24;color:#232b4d;font-weight:700;padding:10px 28px;border-radius:18px;border:none;box-shadow:0 2px 8px rgba(99,102,241,0.18);font-size:1.1rem;cursor:pointer;margin-bottom:18px;">&#8592; Back to Main Page</button>
+        </a>
+        <img src="Screenshot 2025-09-14 144457.png" alt="SMVITM Logo" style="height:120px;width:auto;box-shadow:0 8px 32px rgba(99,102,241,0.18);border-radius:18px;background:#fff;padding:10px;animation:floatLogo 3.5s ease-in-out infinite alternate;position:relative;z-index:2;" />
+        <div style="font-weight:bold;font-size:1.15rem;color:#fbbf24;margin-top:10px;margin-bottom:8px;letter-spacing:1px;text-align:center;">AN AUTONOMOUS INSTITUTION</div>
+        <h2 style="text-align:center; margin-top:0; color:#fff;">Material</h2>
+    </div>
+            <div class="container">
+        <div class="box">Module -1
+            <button onclick="showPDF('https://drive.google.com/file/d/1jNUBG7NErrRCqk1vVRZYxEKtpPcJlduo/preview')" style="margin-top:18px;padding:8px 18px;border-radius:8px;background:#232b4d;color:#fff;border:none;cursor:pointer;font-size:1rem;">Show PDF</button>
+        </div>
+        <div class="box">Module -2
+            <button onclick="showPDF('https://drive.google.com/file/d/1JkBoHY-E62iSahrlMqwtzYeStDWxOMKC/preview')" style="margin-top:18px;padding:8px 18px;border-radius:8px;background:#232b4d;color:#fff;border:none;cursor:pointer;font-size:1rem;">Show PDF</button>
+        </div>
+        <div class="box">Module -3
+            <button onclick="showPDF('https://drive.google.com/file/d/1Vl87jUTGmb0yp1LcVquqKPog2i2D3jd7/preview')" style="margin-top:18px;padding:8px 18px;border-radius:8px;background:#232b4d;color:#fff;border:none;cursor:pointer;font-size:1rem;">Show PDF</button>
+        </div>
+        <div class="box">Module -4
+            <button onclick="showPDF('https://drive.google.com/file/d/1801wXEPZ47C0nBi62xgqwZAvEHaCBnQl/preview')" style="margin-top:18px;padding:8px 18px;border-radius:8px;background:#232b4d;color:#fff;border:none;cursor:pointer;font-size:1rem;">Show PDF</button>
+        </div>
+        <div class="box">Module -5
+            <button onclick="showPDF('https://drive.google.com/file/d/11zJ7ep2miNZRBLwJ5ztJ_yZbRbdFjCRj/preview')" style="margin-top:18px;padding:8px 18px;border-radius:8px;background:#232b4d;color:#fff;border:none;cursor:pointer;font-size:1rem;">Show PDF</button>
+        </div>
+        <div class="box">Text Book
+            <button onclick="showPDF('https://drive.google.com/file/d/1XlnJqA5vCIApOzc5M_41usf-6-UkTwRt/preview')" style="margin-top:18px;padding:8px 18px;border-radius:8px;background:#232b4d;color:#fff;border:none;cursor:pointer;font-size:1rem;">Show PDF</button>
+        </div>
+    </div>
+    <script>
+        // Floating computer/network SVG images
+            const imageSvgs = [
+                // Monitor
+                `<svg viewBox='0 0 48 48' fill='none'><rect x='8' y='12' width='32' height='20' rx='3' fill='#38bdf8'/><rect x='12' y='16' width='24' height='12' rx='2' fill='#fbbf24'/><rect x='20' y='32' width='8' height='4' rx='1' fill='#6366f1'/></svg>`,
+                // Laptop
+                `<svg viewBox='0 0 48 48' fill='none'><rect x='10' y='18' width='28' height='14' rx='2' fill='#6366f1'/><rect x='14' y='22' width='20' height='8' rx='1.5' fill='#fbbf24'/><rect x='8' y='34' width='32' height='4' rx='1' fill='#38bdf8'/></svg>`,
+                // Cloud
+                `<svg viewBox='0 0 48 48' fill='none'><ellipse cx='24' cy='28' rx='14' ry='8' fill='#a7f3d0'/><ellipse cx='18' cy='24' rx='6' ry='5' fill='#38bdf8'/><ellipse cx='30' cy='24' rx='7' ry='6' fill='#fbbf24'/></svg>`,
+                // Server Rack
+                `<svg viewBox='0 0 48 48' fill='none'><rect x='12' y='10' width='24' height='28' rx='4' fill='#6366f1'/><rect x='16' y='14' width='16' height='4' rx='1' fill='#fbbf24'/><rect x='16' y='22' width='16' height='4' rx='1' fill='#a7f3d0'/><rect x='16' y='30' width='16' height='4' rx='1' fill='#38bdf8'/></svg>`,
+                // Smartphone
+                `<svg viewBox='0 0 48 48' fill='none'><rect x='16' y='10' width='16' height='28' rx='3' fill='#fbbf24'/><rect x='20' y='14' width='8' height='16' rx='1.5' fill='#6366f1'/><rect x='22' y='32' width='4' height='2' rx='1' fill='#38bdf8'/></svg>`,
+                // Shield
+                `<svg viewBox='0 0 48 48' fill='none'><path d='M24 8 L40 16 V28 C40 36 24 40 24 40 C24 40 8 36 8 28 V16 Z' fill='#38bdf8'/><path d='M24 12 L36 18 V28 C36 34 24 36 24 36 C24 36 12 34 12 28 V18 Z' fill='#fbbf24'/></svg>`,
+                // Cable
+                `<svg viewBox='0 0 48 48' fill='none'><rect x='10' y='22' width='28' height='4' rx='2' fill='#6366f1'/><rect x='8' y='20' width='4' height='8' rx='1' fill='#fbbf24'/><rect x='36' y='20' width='4' height='8' rx='1' fill='#a7f3d0'/></svg>`,
+                // Router
+                `<svg viewBox='0 0 48 48' fill='none'><circle cx='24' cy='24' r='16' fill='#a7f3d0'/><rect x='18' y='18' width='12' height='12' rx='3' fill='#6366f1'/><rect x='22' y='22' width='4' height='4' rx='1' fill='#fbbf24'/></svg>`,
+                // Server
+                `<svg viewBox='0 0 48 48' fill='none'><rect x='10' y='14' width='28' height='20' rx='4' fill='#6366f1'/><rect x='14' y='18' width='20' height='12' rx='2' fill='#fbbf24'/></svg>`,
+                // Database
+                `<svg viewBox='0 0 48 48' fill='none'><ellipse cx='24' cy='24' rx='18' ry='10' fill='#38bdf8'/><rect x='20' y='18' width='8' height='12' rx='2' fill='#fbbf24'/></svg>`,
+                // Switch
+                `<svg viewBox='0 0 48 48' fill='none'><rect x='12' y='20' width='24' height='8' rx='2' fill='#a7f3d0'/><rect x='18' y='28' width='12' height='4' rx='1' fill='#6366f1'/></svg>`,
+                // Satellite
+                `<svg viewBox='0 0 48 48' fill='none'><circle cx='24' cy='24' r='20' fill='#fbbf24'/><rect x='20' y='20' width='8' height='8' rx='2' fill='#6366f1'/></svg>`,
+            ];
+        const floatingImagesDiv = document.getElementById('floatingImages');
+        const imgCount = 7;
+        let imgObjs = [];
+        for(let i=0;i<imgCount;i++){
+            let el = document.createElement('div');
+            el.className = 'floating-img';
+            el.innerHTML = imageSvgs[Math.floor(Math.random()*imageSvgs.length)];
+            el.style.left = Math.random()*90+5+'vw';
+            el.style.top = Math.random()*80+10+'vh';
+            floatingImagesDiv.appendChild(el);
+            imgObjs.push({el,angle:Math.random()*360,speed:0.2+Math.random()*0.5,baseTop:parseFloat(el.style.top),baseLeft:parseFloat(el.style.left)});
+        }
+        function animateImgs(){
+            imgObjs.forEach(obj=>{
+                obj.angle += obj.speed;
+                let top = obj.baseTop + Math.sin(obj.angle/30)*2.5;
+                let left = obj.baseLeft + Math.cos(obj.angle/40)*2.5;
+                obj.el.style.top = top+'vh';
+                obj.el.style.left = left+'vw';
+                obj.el.style.transform = `scale(${1+0.08*Math.sin(obj.angle/20)})`;
+            });
+            requestAnimationFrame(animateImgs);
+        }
+        animateImgs();
+    // Dynamic network background animation
+    const canvas = document.getElementById('networkCanvas');
+    const ctx = canvas.getContext('2d');
+    let nodes = [];
+    let links = [];
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+    function createNetwork() {
+        nodes = [];
+        links = [];
+        for (let i = 0; i < 30; i++) {
+            nodes.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                vx: (Math.random()-0.5)*0.7,
+                vy: (Math.random()-0.5)*0.7
+            });
+        }
+        for (let i = 0; i < nodes.length; i++) {
+            for (let j = i+1; j < nodes.length; j++) {
+                if (Math.hypot(nodes[i].x-nodes[j].x, nodes[i].y-nodes[j].y) < 220) {
+                    links.push([i,j]);
+                }
+            }
+        }
+    }
+    createNetwork();
+    function animate() {
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        // Draw links
+        ctx.strokeStyle = 'rgba(255,255,255,0.18)';
+        ctx.lineWidth = 1.2;
+        for (let l of links) {
+            let a = nodes[l[0]], b = nodes[l[1]];
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.stroke();
+        }
+        // Draw nodes
+        for (let n of nodes) {
+            ctx.beginPath();
+            ctx.arc(n.x, n.y, 5, 0, 2*Math.PI);
+            ctx.fillStyle = '#fbbf24';
+            ctx.fill();
+        }
+        // Move nodes
+        for (let n of nodes) {
+            n.x += n.vx;
+            n.y += n.vy;
+            if (n.x < 0 || n.x > canvas.width) n.vx *= -1;
+            if (n.y < 0 || n.y > canvas.height) n.vy *= -1;
+        }
+        requestAnimationFrame(animate);
+    }
+    animate();
+    // PDF viewer function
+    function showPDF(link) {
+        var modal = document.getElementById('pdfModal');
+        var frame = document.getElementById('pdfFrame');
+        frame.src = link;
+        modal.style.display = 'flex';
+    }
+    function closePDF() {
+        var modal = document.getElementById('pdfModal');
+        var frame = document.getElementById('pdfFrame');
+        frame.src = '';
+        modal.style.display = 'none';
+    }
+    </script>
+</body>
+</html>
